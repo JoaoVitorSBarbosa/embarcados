@@ -1,0 +1,25 @@
+main
+	emiteIniciais
+		morseJ
+			morsePonto
+			morseTraco
+		morseV
+			morsePonto
+			morseTraco
+		morseS
+			morsePonto
+		morseB
+			morseTraco
+			morsePonto
+	emiteMatricula
+		morse2
+			morsePonto
+			morseTraco
+		morse0
+			morseTraco
+		morse1
+			morsePonto
+			morseTraco
+		morse3
+			morsePonto
+			morseTraco

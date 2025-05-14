@@ -10,7 +10,7 @@
 ** Compilador: MikroC PRO PIC v.6.4.0                           **
 **                                                              **
 ** Obs: Ativar dips switchs: INFR, VENT e LED1                  **
-** Nome: João Vitor S Barbosa                                   **
+** Nome: João Vitor Santos Barbosa                              **
 ** UFLA - Lavras/MG - 14/05/2025                                **
 ******************************************************************/
 // Conexoes LCD do kit PICGenios com 18F
@@ -31,9 +31,10 @@ sbit LCD_D7_Direction at TRISD7_bit;
 
 void main(){
 
+
    unsigned long int contador = 0;
    int contaux = 0;
-   char contadorString[7];
+   char contadorString[16];
    ADCON0  = 0x00; // Configura todos pinos para digital e
    ADCON1  = 0x06; // desabilita o conversor A/D
 
@@ -53,23 +54,22 @@ void main(){
    delay_ms(1000);
    Lcd_Cmd(_LCD_CLEAR);
    delay_ms(100);
+   Lcd_Out(1,1,"Numero de voltas");          // Exibe Numero de voltas na primeira linha do LCD
    while(1) {
 
 
         while (portc.rc0 == 0)
-          delay_ms(1);
-        while (portc.rc0 == 1){
-          delay_ms(1);
-          contaux = contaux + 1;
-          if(contaux >= 8) {
+          delay_us(1);
+        while (portc.rc0 == 1)
+          delay_us(1);
+          
+        contaux = contaux + 1;
+        if(contaux >= 7) {
             contador = contador + 1;
-            portd = contador;
             contaux = 0;
-          }
         }
-
         IntToStr(contador,contadorString);        // Converte int em String para ser exibido no LCD
-        Lcd_Out(1,1,"Numero de voltas");          // Exibe Numero de voltas na primeira linha do LCD
+
         Lcd_Out(2,6,contadorString);      // Exibe no LCD o contador
         if(portb.rb0 == 0) contador = 0;  // Zera o contador
 

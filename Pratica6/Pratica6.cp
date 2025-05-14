@@ -17,9 +17,10 @@ sbit LCD_D7_Direction at TRISD7_bit;
 
 void main(){
 
- int contador = 0;
+
+ unsigned long int contador = 0;
  int contaux = 0;
- char contadorString[7];
+ char contadorString[16];
  ADCON0 = 0x00;
  ADCON1 = 0x06;
 
@@ -39,23 +40,22 @@ void main(){
  delay_ms(1000);
  Lcd_Cmd(_LCD_CLEAR);
  delay_ms(100);
+ Lcd_Out(1,1,"Numero de voltas");
  while(1) {
 
 
  while (portc.rc0 == 0)
- delay_ms(1);
- while (portc.rc0 == 1){
- delay_ms(1);
+ delay_us(1);
+ while (portc.rc0 == 1)
+ delay_us(1);
+
  contaux = contaux + 1;
- if(contaux >= 8) {
+ if(contaux >= 7) {
  contador = contador + 1;
- portd = contador;
  contaux = 0;
  }
- }
-
  IntToStr(contador,contadorString);
- Lcd_Out(1,1,"Numero de voltas");
+
  Lcd_Out(2,6,contadorString);
  if(portb.rb0 == 0) contador = 0;
 
